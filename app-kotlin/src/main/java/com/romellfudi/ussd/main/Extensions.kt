@@ -9,22 +9,11 @@ package com.romellfudi.ussd.main
 import android.app.Activity
 import android.app.Service
 import android.content.Intent
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-
-/**
- * Extensions
- *
- * @version 1.0.a
- * @autor Romell Domínguez (@romellfudi)
- * @date 3/21/21
- */
 object service {
     var internalIntent:Intent? = null
 }
 
-@RequiresApi(Build.VERSION_CODES.N)
 inline fun <reified T : Service> Activity.goService(extras:HashMap<String,String>?=null ) {
     service.internalIntent = Intent(this, T::class.java).apply {
         extras?.forEach(::putExtra) // key, value -> putExtra(key, value)

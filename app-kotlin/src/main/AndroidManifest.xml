@@ -30,10 +30,11 @@
         </service>
 
         <activity
-            android:name=".accessibility.view.MainActivity"
+            android:name=".accessibility.view.AccessibilityActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden" />
+
         <activity
             android:name=".accessibility.view.SplashActivity"
             android:exported="true"

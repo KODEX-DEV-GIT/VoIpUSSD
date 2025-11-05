@@ -13,7 +13,7 @@ import com.orhanobut.logger.FormatStrategy
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
 import com.romellfudi.ussd.accessibility.di.accessibilityModule
-import com.romellfudi.ussd.main.di.appModule
+import com.romellfudi.ussd.main.di.appUSSDModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
@@ -51,7 +51,7 @@ class App : Application() {
 //            }
             androidContext(this@App)
             modules(
-                appModule,
+                appUSSDModule,
                 accessibilityModule
             )
         }

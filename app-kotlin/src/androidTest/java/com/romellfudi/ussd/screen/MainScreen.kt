@@ -6,12 +6,12 @@ import io.github.kakaocup.kakao.text.KButton
 import io.github.kakaocup.kakao.text.KTextView
 import com.kaspersky.kaspresso.screens.KScreen
 import com.romellfudi.ussd.R
-import com.romellfudi.ussd.accessibility.view.MainActivity
+import com.romellfudi.ussd.accessibility.view.AccessibilityActivity
 
 object MainScreen : KScreen<MainScreen>() {
 
     override val layoutId: Int = R.layout.activity_main_menu
-    override val viewClass: Class<*> = MainActivity::class.java
+    override val viewClass: Class<*> = AccessibilityActivity::class.java
 
     val dialUpButton = KButton { withId(R.id.accessibility) }
     val radioSplash = KButton { withId(R.id.splash)}

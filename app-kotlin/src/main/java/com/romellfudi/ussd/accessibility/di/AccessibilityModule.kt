@@ -6,14 +6,13 @@
 
 package com.romellfudi.ussd.accessibility.di
 
-import android.app.Activity
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.romellfudi.permission.PermissionService
-import com.romellfudi.ussd.accessibility.interactor.MainInteractor
-import com.romellfudi.ussd.accessibility.interactor.MainMVPInteractor
-import com.romellfudi.ussd.accessibility.presenter.MainMVPPresenter
-import com.romellfudi.ussd.accessibility.presenter.MainPresenter
-import com.romellfudi.ussd.accessibility.view.MainMVPView
+import com.romellfudi.ussd.accessibility.interactor.AccessibilityInteraction
+import com.romellfudi.ussd.accessibility.interactor.AccessibilityMVPInteraction
+import com.romellfudi.ussd.accessibility.presenter.AccessibilityMVPPresenter
+import com.romellfudi.ussd.accessibility.presenter.AccessibilityPresenter
+import com.romellfudi.ussd.accessibility.view.AccessibilityMVPView
 import org.koin.dsl.module
 
 /**
@@ -29,8 +28,7 @@ val accessibilityModule = module {
 
     factory { AppUpdateManagerFactory.create(get()) }
 
-    single<MainMVPInteractor> { MainInteractor(get()) }
-    single<MainMVPPresenter<MainMVPView, MainMVPInteractor>> { MainPresenter(get()) }
-
+    single<AccessibilityMVPInteraction> { AccessibilityInteraction(get()) }
+    single<AccessibilityMVPPresenter<AccessibilityMVPView, AccessibilityMVPInteraction>> { AccessibilityPresenter(get()) }
 
 }

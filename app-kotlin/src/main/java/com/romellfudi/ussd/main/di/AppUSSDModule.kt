@@ -16,7 +16,6 @@ import com.romellfudi.ussd.main.presenter.MainFragmentPresenter
 import com.romellfudi.ussd.main.view.MainFragmentMVPView
 import com.romellfudi.ussdlibrary.USSDApi
 import com.romellfudi.ussdlibrary.USSDController
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -27,7 +26,7 @@ import org.koin.dsl.module
  * @version 1.12.a 01/03/2021
  * @since 1.0.a 27/09/2018
  */
-val appModule = module {
+val appUSSDModule = module {
     viewModelOf(::CallViewModel)// { CallViewModel() }
     single<USSDApi> { USSDController }
     single<MainFragmentMVPPresenter<MainFragmentMVPView, MainFragmentMVPInteractor>> { (view: MainFragmentMVPView) ->

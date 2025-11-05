@@ -6,6 +6,9 @@
 
 package com.romellfudi.ussd.main.view
 
+//import kotlinx.android.synthetic.main.call_fragment.*
+//import org.koin.core.KoinComponent
+//import org.koin.core.inject
 import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
@@ -26,23 +29,13 @@ import com.romellfudi.ussd.main.presenter.MainFragmentMVPPresenter
 import com.romellfudi.ussd.main.statehood.UssdState
 import com.romellfudi.ussdlibrary.OverlayShowingService
 import com.romellfudi.ussdlibrary.USSDApi
-//import kotlinx.android.synthetic.main.call_fragment.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-//import org.koin.core.KoinComponent
-//import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
-/**
- * Use Case for Test Windows
- *
- * @author Romell Domínguez
- * @version 1.12.a 27/09/2018
- * @since 1.12.a
- */
 
 class MainFragmentView : Fragment(), MainFragmentMVPView, KoinComponent {
 
@@ -67,6 +60,8 @@ class MainFragmentView : Fragment(), MainFragmentMVPView, KoinComponent {
     private val loading by lazy { getString(R.string.loading_data) }
 
     private val dialog by lazy { getString(R.string.splash_dialog) }
+
+
     private lateinit var binding: CallFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -132,7 +127,7 @@ class MainFragmentView : Fragment(), MainFragmentMVPView, KoinComponent {
 
     override fun showSplashOverlay() {
         Timber.i("START OVERLAY DIALOG")
-//        goService<SplashLoadingService>()
+//        goService<SplashLoadingService>(hashMapOf("EXTRA" to dialog))
         goService<CustomSplashService>(hashMapOf("EXTRA" to dialog))
         handler.postDelayed(::dismissOverlay, 12000)
     }

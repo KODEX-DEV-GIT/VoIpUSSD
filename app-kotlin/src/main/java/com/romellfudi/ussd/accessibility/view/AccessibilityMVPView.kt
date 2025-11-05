@@ -11,7 +11,7 @@ package com.romellfudi.ussd.accessibility.view
  * @autor Romell Domínguez
  * @date 2020-04-26
  */
-interface MainMVPView {
+interface AccessibilityMVPView {
     fun checkUpdate()
     fun showMessage(message: String)
     fun notifyUser()

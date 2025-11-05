@@ -18,11 +18,11 @@ android {
             storePassword attrs['password']
         }
     }
-    compileSdk 35
+    compileSdk 36
     defaultConfig {
         applicationId "com.romellfudi.ussd"
-        minSdk 23
-        targetSdk 35
+        minSdk 26
+        targetSdk 36
         versionCode 12
         versionName "1.12.a"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -69,8 +69,8 @@ android {
 }
 
 dependencies {//JavaVersion.VERSION_21
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'com.google.android.material:material:1.13.0'
 //    implementation 'com.romellfudi.permission:fudi-permission:2.0.a'
     implementation 'com.github.romellfudi.FudiPermission:kotlin-fudi-permission:2.0.b'
 //    implementation 'com.romellfudi.permission:fudi-permission:1.0.a'
@@ -83,15 +83,15 @@ dependencies {//JavaVersion.VERSION_21
     implementation("com.google.android.play:app-update-ktx:2.1.0")
 
 
-    implementation 'com.google.firebase:firebase-analytics:22.1.2'
+    implementation 'com.google.firebase:firebase-analytics:23.0.0'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation 'com.jakewharton.timber:timber:5.0.1'
     implementation project(':ussd-library')
 
-    implementation 'com.google.dagger:dagger:2.52'
+    implementation 'com.google.dagger:dagger:2.57.2'
     implementation libs.androidx.core.ktx
     implementation libs.lifecycle.viewmodel.ktx
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.52'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.57.2'
 
     implementation 'android.arch.lifecycle:extensions:1.1.1'
 }

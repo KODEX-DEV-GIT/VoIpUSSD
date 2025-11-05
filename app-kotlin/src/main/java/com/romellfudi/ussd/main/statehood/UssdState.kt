@@ -6,11 +6,6 @@
 
 package com.romellfudi.ussd.main.statehood
 
-/**
- * @version 1.0
- * @autor Romell Domínguez
- * @date 2021-03-14
- */
 sealed class UssdState {
     object Successful : UssdState()
     data class Progress(val progress: Int) : UssdState()

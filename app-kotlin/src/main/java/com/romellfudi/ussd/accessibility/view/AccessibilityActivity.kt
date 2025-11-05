@@ -35,8 +35,9 @@ import org.koin.core.component.inject
  * @since 1.0
  */
 const val REQUEST_CODE_FLEXIBLE_UPDATE: Int = 1234
-class MainActivity : AppCompatActivity(), KoinComponent,
-        InstallStateUpdatedListener, MainMVPView {
+
+class AccessibilityActivity : AppCompatActivity(), KoinComponent,
+    InstallStateUpdatedListener, AccessibilityMVPView {
 
     private val appUpdateManager: AppUpdateManager by inject()
 
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity(), KoinComponent,
         AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
         runBlocking {
             async {
-                appUpdateManager.registerListener(this@MainActivity)
+                appUpdateManager.registerListener(this@AccessibilityActivity)
                 checkUpdate()
             }
         }
@@ -66,13 +67,21 @@ class MainActivity : AppCompatActivity(), KoinComponent,
     @SuppressLint("StringFormatMatches")
     override fun checkUpdate() {
         appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
-            showMessage(getString(R.string.app_update_info, appUpdateInfo.updateAvailability(),
-                    appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)))
+            showMessage(
+                getString(
+                    R.string.app_update_info,
+                    appUpdateInfo.updateAvailability(),
+                    appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+                )
+            )
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            ) {
                 try {
-                    appUpdateManager.startUpdateFlowForResult(appUpdateInfo,
-                            AppUpdateType.IMMEDIATE, this, REQUEST_CODE_FLEXIBLE_UPDATE)
+                    appUpdateManager.startUpdateFlowForResult(
+                        appUpdateInfo,
+                        AppUpdateType.IMMEDIATE, this, REQUEST_CODE_FLEXIBLE_UPDATE
+                    )
                 } catch (e: SendIntentException) {
                     showMessage(errorUpdate)
                 }
@@ -81,14 +90,14 @@ class MainActivity : AppCompatActivity(), KoinComponent,
     }
 
     override fun showMessage(message: String) =
-            Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show()
 
     override fun notifyUser() =
-            Snackbar.make(findViewById(android.R.id.content), restart, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(restart) {
-                        appUpdateManager.completeUpdate()
-                        appUpdateManager.unregisterListener(this)
-                    }.show()
+        Snackbar.make(findViewById(android.R.id.content), restart, Snackbar.LENGTH_INDEFINITE)
+            .setAction(restart) {
+                appUpdateManager.completeUpdate()
+                appUpdateManager.unregisterListener(this)
+            }.show()
 
     override fun onDestroy() {
         appUpdateManager.unregisterListener(this)

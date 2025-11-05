@@ -26,8 +26,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieDrawable
 import com.airbnb.lottie.RenderMode
 import com.romellfudi.ussd.R
 import com.romellfudi.ussd.main.statehood.UssdState
@@ -65,8 +65,10 @@ class CustomSplashService : LifecycleService() {
         val lottie = LottieAnimationView(this).apply {
             setAnimation(R.raw.ussd_interface)
             speed = 1.5f
-            loop(true)
-            setRenderMode(RenderMode.AUTOMATIC)
+//            loop(true)
+            repeatMode = LottieDrawable.REVERSE
+            repeatCount = LottieDrawable.INFINITE
+            renderMode = RenderMode.AUTOMATIC
             playAnimation()
             setPaddingRelative(0, paddingInPx, 0, paddingInPx)
         }
@@ -76,13 +78,13 @@ class CustomSplashService : LifecycleService() {
             setTextColor(ContextCompat.getColor(this@CustomSplashService, android.R.color.white))
             setPadding(dpAsPixels, 0, dpAsPixels, 0)
         }
-        progressMessage.observe(this, Observer {
+        progressMessage.observe(this) {
             when (it) {
                 is UssdState.Successful -> progressTV.text = "COMPLETED TASK !!!"
                 is UssdState.Error -> progressTV.text = it.errorMessage
                 is UssdState.Progress -> progressTV.text = "PROCESSING ${it.progress}%"
             }
-        })
+        }
         val textView = TextView(this).apply {
             text = message
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 16F)

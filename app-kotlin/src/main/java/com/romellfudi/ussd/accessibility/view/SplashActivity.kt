@@ -4,7 +4,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.romellfudi.ussd.R
 import com.romellfudi.ussd.accessibility.goActivity
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class SplashActivity : AppCompatActivity() {
@@ -24,7 +28,7 @@ class SplashActivity : AppCompatActivity() {
 
         activityScope.launch {
             delay(2000)
-            goActivity<MainActivity>()
+            goActivity<AccessibilityActivity>()
             Timber.i("starting Main Activity")
             finish()
         }

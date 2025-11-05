@@ -16,16 +16,11 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.provider.Settings
 import android.telecom.TelecomManager
 import android.view.accessibility.AccessibilityManager
 
-/**
- * @author Romell Dominguez
- * @version 1.1.i 2019/04/18
- * @since 1.1.i
- */
+@Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
 @SuppressLint("StaticFieldLeak")
 object USSDController : USSDInterface, USSDApi {
 
@@ -173,7 +168,7 @@ object USSDController : USSDInterface, USSDApi {
 
             ussdPhoneNumber.isEmpty() -> callbackInvoke.over("Bad ussd number")
             else -> {
-                var phone = Uri.encode("#")?.let {
+                val phone = Uri.encode("#")?.let {
                     ussdPhoneNumber.replace("#", it)
                 }
                 isRunning = true
@@ -275,10 +270,11 @@ object USSDController : USSDInterface, USSDApi {
      * @return The enable value of the permission
      */
     override fun verifyOverLay(context: Context): Boolean =
-        (Build.VERSION.SDK_INT < Build.VERSION_CODES.M
-                || Settings.canDrawOverlays(context)).also {
+        (Settings.canDrawOverlays(context)).also {
             if (!it) openSettingsOverlay(context as Activity)
         }
+//    Build.VERSION.SDK_INT < Build.VERSION_CODES.M
+//    ||
 
     private fun openSettingsAccessibility(activity: Activity) =
         with(AlertDialog.Builder(activity)) {

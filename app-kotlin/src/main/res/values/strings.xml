@@ -12,7 +12,7 @@
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_activity_cp1">Test</string>
     <string name="action_config1">Test Config</string>
-    <string name="refuse_permissions">Please allow call permission</string>
+
     <string name="usss_input">Introduce # ussd</string>
     <string name="copyright">RomellFudi</string>
     <string name="normal">Normal Dial-Up</string>
@@ -23,6 +23,7 @@
     <string name="errorUpdate">Request update error</string>
     <string name="app_update_info">updateAvailability: %1$s; isUpdateTypeAllowed: %2$s</string>
     <string name="loading_data">Loading Data</string>
+    <string name="refuse_permissions">Please allow call permission</string>
     <string name="splash_dialog">READING AND SENDING USSD MESSAGES</string>
 
     <string-array name="permissions">

@@ -1,15 +1,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '2.0.0'
-    ext.nav_version = '2.8.5'
-    ext.lifecycle_version = '2.8.7'
+    ext.kotlin_version = '2.2.21'
+    ext.nav_version = '2.9.5'
+    ext.lifecycle_version = '2.9.4'
     ext.dagger_version = "2.24"
-    ext.navigationVersion = '2.8.5'
+    ext.navigationVersion = '2.9.5'
     ext.koin = '2.0.0'
     repositories {
         google()
-        jcenter()
         mavenCentral()
         maven { url 'https://jitpack.io' }
         maven { url 'https://maven.fabric.io/public' }
@@ -18,7 +17,7 @@ buildscript {
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.7.3'
+        classpath 'com.android.tools.build:gradle:8.13.0'
         classpath 'com.google.gms:google-services:4.4.2'
 //        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.1'
 //        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
@@ -34,7 +33,6 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
         mavenCentral()
         maven { url 'https://jitpack.io' }
         maven { url 'https://maven.fabric.io/public' }

@@ -9,13 +9,15 @@ import android.accessibilityservice.AccessibilityService;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 import timber.log.Timber;
 
@@ -39,10 +41,7 @@ public class USSDServiceKT extends AccessibilityService {
     public void onAccessibilityEvent(AccessibilityEvent event) {
         USSDServiceKT.event = event;
         USSDController ussd = USSDController.INSTANCE;
-        Timber.d(String.format(
-                "onAccessibilityEvent: [type] %s [class] %s [package] %s [time] %s [text] %s",
-                event.getEventType(), event.getClassName(), event.getPackageName(),
-                event.getEventTime(), event.getText()));
+        Timber.d("onAccessibilityEvent: [type] " + event.getEventType() + " [class] " + event.getClassName() + " [package] " + event.getPackageName() + " [time] " + event.getEventTime() + " [text] " + event.getText(), Locale.getDefault());
         if (ussd == null || !ussd.isRunning()) {
             return;
         }
@@ -51,11 +50,11 @@ public class USSDServiceKT extends AccessibilityService {
             // first view or logView, do nothing, pass / FIRST MESSAGE
             clickOnButton(event, 0);
             ussd.stopRunning();
-            ussd.callbackInvoke.over(response);
+            USSDController.callbackInvoke.over(response);
         } else if (problemView(event) || LoginView(event)) {
             // deal down
             clickOnButton(event, 1);
-            ussd.callbackInvoke.over(response);
+            USSDController.callbackInvoke.over(response);
         } else if (isUSSDWidget(event)) {
             Timber.d("catch a USSD widget/Window");
             if (notInputText(event)) {
@@ -64,12 +63,12 @@ public class USSDServiceKT extends AccessibilityService {
                 Timber.d("No inputText found & closing USSD process");
                 clickOnButton(event, 0);
                 ussd.stopRunning();
-                ussd.callbackInvoke.over(response);
+                USSDController.callbackInvoke.over(response);
             } else {
                 // sent option 1
-                if (ussd.getSendType())
-                    ussd.getCallbackMessage().invoke(response);
-                else ussd.callbackInvoke.responseInvoke(response);
+                if (Boolean.TRUE.equals(ussd.getSendType()))
+                    Objects.requireNonNull(ussd.getCallbackMessage()).invoke(response);
+                else USSDController.callbackInvoke.responseInvoke(response);
             }
         }
 
@@ -106,7 +105,7 @@ public class USSDServiceKT extends AccessibilityService {
         for (AccessibilityNodeInfo leaf : getLeaves(event)) {
             if (leaf.getClassName().equals("android.widget.EditText")
                     && !leaf.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments)) {
-                ClipboardManager clipboardManager = ((ClipboardManager)  USSDController
+                ClipboardManager clipboardManager = ((ClipboardManager) USSDController
                         .INSTANCE.getContext().getSystemService(Context.CLIPBOARD_SERVICE));
                 if (clipboardManager != null) {
                     clipboardManager.setPrimaryClip(ClipData.newPlainText("text", data));
@@ -151,9 +150,15 @@ public class USSDServiceKT extends AccessibilityService {
      * @return boolean USSD Widget has login message
      */
     private boolean LoginView(AccessibilityEvent event) {
-        return isUSSDWidget(event)
-                && USSDController.INSTANCE.getMap().get(USSDController.KEY_LOGIN)
-                .contains(event.getText().get(0).toString());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            return isUSSDWidget(event)
+                    && USSDController.INSTANCE.getMap().get(USSDController.KEY_LOGIN)
+                    .contains(event.getText().getFirst().toString());
+        }else{
+            return isUSSDWidget(event)
+                    && USSDController.INSTANCE.getMap().get(USSDController.KEY_LOGIN)
+                    .contains(event.getText().get(0).toString());
+        }
     }
 
     /**
@@ -209,7 +214,7 @@ public class USSDServiceKT extends AccessibilityService {
      */
     @Override
     public void onInterrupt() {
-        Timber.d( "onInterrupt");
+        Timber.d("onInterrupt");
     }
 
     /**
